@@ -295,7 +295,7 @@ index 0003f521c..41d6fca76 100644
 +app-security > app-two-factor-setup > form { @extend %vw-hide; }
 +/**** END Vaultwarden CHANGES ****/
 diff --git a/libs/angular/src/components/register.component.ts b/libs/angular/src/components/register.component.ts
-index 029639e7e..6c3606341 100644
+index 029639e..62d4014 100644
 --- a/libs/angular/src/components/register.component.ts
 +++ b/libs/angular/src/components/register.component.ts
 @@ -35,7 +35,7 @@ export class RegisterComponent extends CaptchaProtectedComponent implements OnIn
@@ -328,7 +328,7 @@ index 029639e7e..6c3606341 100644
 +      );
 +      return;
 +    }
-+
++  
      let email = this.formGroup.value.email;
      email = email.trim().toLowerCase();
      let name = this.formGroup.value.name;
