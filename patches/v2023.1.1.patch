@@ -239,7 +239,7 @@ index 4113b3ab2..7a8227232 100644
      // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
      this.route.queryParams.pipe(first()).subscribe(async (params) => {
 diff --git a/apps/web/src/scss/styles.scss b/apps/web/src/scss/styles.scss
-index 0003f521c..9470f0aa3 100644
+index 0003f521c..41d6fca76 100644
 --- a/apps/web/src/scss/styles.scss
 +++ b/apps/web/src/scss/styles.scss
 @@ -58,3 +58,62 @@
