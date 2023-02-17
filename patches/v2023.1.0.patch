@@ -23,7 +23,7 @@ index 5a650b367..275c34f72 100644
        </p>
      </div>
 -    <div class="container footer text-muted content">© Copyright 2023 Bitwarden, Inc.</div>
-+    <div class="container footer text-muted content">Vaultwarden (unofficial Bitwarden&reg; server)</div>
++    <div class="container footer text-muted content">© Copyright 2023 Bitwarden, Inc. (Powered by Vaultwarden)</div>
    </body>
  </html>
 diff --git a/apps/web/src/app/app.component.ts b/apps/web/src/app/app.component.ts
@@ -110,7 +110,7 @@ index 98836bfd5..1239167c4 100644
  <div class="container footer text-muted">
    <div class="row">
 -    <div class="col">&copy; {{ year }} Bitwarden Inc.</div>
-+    <div class="col">Vaultwarden (unofficial Bitwarden&reg; server)</div>
++    <div class="col">&copy; {{ year }} Bitwarden Inc. (Powered by Vaultwarden)</div>
      <div class="col text-center"></div>
      <div class="col text-right">
        {{ "versionNumber" | i18n: version }}
@@ -122,21 +122,13 @@ index d737bc9f0..6a312c0b1 100644
  <router-outlet></router-outlet>
  <div class="container my-5 text-muted text-center">
 -  &copy; {{ year }} Bitwarden Inc. <br />
-+  Vaultwarden (unofficial Bitwarden&reg; server)<br />
++  &copy; {{ year }} Bitwarden Inc. (Powered by Vaultwarden)<br />
    {{ "versionNumber" | i18n: version }}
  </div>
 diff --git a/apps/web/src/app/layouts/navbar.component.html b/apps/web/src/app/layouts/navbar.component.html
 index e1513f050..2e854c3ba 100644
 --- a/apps/web/src/app/layouts/navbar.component.html
 +++ b/apps/web/src/app/layouts/navbar.component.html
-@@ -1,6 +1,6 @@
- <nav class="navbar navbar-expand navbar-dark" [ngClass]="{ 'nav-background-alt': selfHosted }">
-   <div class="container">
--    <a class="navbar-brand" routerLink="/" appA11yTitle="{{ 'pageTitle' | i18n: 'Bitwarden' }}">
-+    <a class="navbar-brand" routerLink="/" appA11yTitle="{{ 'pageTitle' | i18n: 'Vaultwarden' }}">
-       <i class="bwi bwi-shield" aria-hidden="true"></i>
-     </a>
-     <div class="collapse navbar-collapse">
 @@ -68,7 +68,7 @@
                <i class="bwi bwi-fw bwi-user" aria-hidden="true"></i>
                {{ "accountSettings" | i18n }}
@@ -238,24 +230,6 @@ index 2a2fc4d27..26053e486 100644
 +    this.hideSubscription = true;
    }
  }
-diff --git a/apps/web/src/app/settings/two-factor-authenticator.component.ts b/apps/web/src/app/settings/two-factor-authenticator.component.ts
-index 652ee24a1..5a63562cc 100644
---- a/apps/web/src/app/settings/two-factor-authenticator.component.ts
-+++ b/apps/web/src/app/settings/two-factor-authenticator.component.ts
-@@ -98,11 +98,11 @@ export class TwoFactorAuthenticatorComponent
-       new window.QRious({
-         element: document.getElementById("qr"),
-         value:
--          "otpauth://totp/Bitwarden:" +
-+          "otpauth://totp/Vaultwarden:" +
-           encodeURIComponent(email) +
-           "?secret=" +
-           encodeURIComponent(this.key) +
--          "&issuer=Bitwarden",
-+          "&issuer=Vaultwarden",
-         size: 160,
-       });
-     }, 100);
 diff --git a/apps/web/src/app/tools/generator.component.ts b/apps/web/src/app/tools/generator.component.ts
 index 6a5f00c19..1bf8daf31 100644
 --- a/apps/web/src/app/tools/generator.component.ts
@@ -286,19 +260,6 @@ index 4113b3ab2..7a8227232 100644
  
      // eslint-disable-next-line rxjs-angular/prefer-takeuntil, rxjs/no-async-subscribe
      this.route.queryParams.pipe(first()).subscribe(async (params) => {
-diff --git a/apps/web/src/index.html b/apps/web/src/index.html
-index 63d4e72c0..68b6ada00 100644
---- a/apps/web/src/index.html
-+++ b/apps/web/src/index.html
-@@ -5,7 +5,7 @@
-     <meta name="viewport" content="width=1010" />
-     <meta name="theme-color" content="#175DDC" />
- 
--    <title page-title>Bitwarden Web Vault</title>
-+    <title page-title>Vaultwarden Web Vault</title>
- 
-     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
-     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
 diff --git a/apps/web/src/manifest.json b/apps/web/src/manifest.json
 index 92a1204c6..5a10dc9ae 100644
 --- a/apps/web/src/manifest.json
@@ -374,17 +335,6 @@ index 0003f521c..9470f0aa3 100644
 +
 +/* Hide Device Verification form at the Two Step Login screen */
 +app-security > app-two-factor-setup > form { @extend %vw-hide; }
-+
-+/* Replace the Bitwarden Shield at the top left with a Vaultwarden icon */
-+.bwi-shield:before {
-+  content: '' !important;
-+  width: 32px !important;
-+  height: 40px !important;
-+  display: block !important;
-+  background-image: url(../images/icon-white.png) !important;
-+  background-repeat: no-repeat;
-+  background-position-y: bottom;
-+}
 +/**** END Vaultwarden CHANGES ****/
 diff --git a/libs/angular/src/components/register.component.ts b/libs/angular/src/components/register.component.ts
 index 029639e7e..6c3606341 100644
