@@ -2,15 +2,6 @@ diff --git a/apps/web/src/404.html b/apps/web/src/404.html
 index 5a650b367..275c34f72 100644
 --- a/apps/web/src/404.html
 +++ b/apps/web/src/404.html
-@@ -28,7 +28,7 @@
-       <div class="container inner banner">
-         <div class="row align-items-center">
-           <div class="col brand">
--            <i class="bwi bwi-shield"></i>&nbsp; <strong>bit</strong>warden
-+            <i class="bwi bwi-shield"></i>&nbsp; <strong>Vault</strong>warden
-           </div>
-         </div>
-       </div>
 @@ -42,11 +42,10 @@
          </a>
        </p>
@@ -71,19 +62,6 @@ index 8baa7c0dd..8f3b5d464 100644
        this.environmentService.setUrls(urls);
  
        setTimeout(() => this.notificationsService.init(), 3000);
-diff --git a/apps/web/src/app/core/router.service.ts b/apps/web/src/app/core/router.service.ts
-index aa9041875..680936375 100644
---- a/apps/web/src/app/core/router.service.ts
-+++ b/apps/web/src/app/core/router.service.ts
-@@ -23,7 +23,7 @@ export class RouterService {
-       .subscribe((event: NavigationEnd) => {
-         this.currentUrl = event.url;
- 
--        let title = i18nService.t("pageTitle", "Bitwarden");
-+        let title = i18nService.t("pageTitle", "Vaultwarden");
-         let child = this.activatedRoute.firstChild;
-         while (child.firstChild) {
-           child = child.firstChild;
 diff --git a/apps/web/src/app/core/web-platform-utils.service.ts b/apps/web/src/app/core/web-platform-utils.service.ts
 index 2d682a35a..e64687b67 100644
 --- a/apps/web/src/app/core/web-platform-utils.service.ts
