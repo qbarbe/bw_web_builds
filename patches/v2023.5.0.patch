@@ -241,7 +241,7 @@ index fce2097a58..26de4ef006 100644
      const filter$ = this.routedVaultFilterService.filter$;
      const organizationId$ = filter$.pipe(
 diff --git a/apps/web/src/scss/styles.scss b/apps/web/src/scss/styles.scss
-index 0003f521c7..32ecf5112e 100644
+index 0003f521c..34049bd4f 100644
 --- a/apps/web/src/scss/styles.scss
 +++ b/apps/web/src/scss/styles.scss
 @@ -58,3 +58,52 @@
@@ -295,7 +295,7 @@ index 0003f521c7..32ecf5112e 100644
 +
 +/* Hide Device Verification form at the Two Step Login screen */
 +app-security > app-two-factor-setup > form { @extend %vw-hide; }
-+}
++
 +/**** END Vaultwarden CHANGES ****/
 diff --git a/libs/angular/src/components/register.component.ts b/libs/angular/src/components/register.component.ts
 index cb5ba243d..2fd685f13 100644
