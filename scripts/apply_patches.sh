@@ -38,23 +38,6 @@ if [[ ! -f "../patches/${PATCH_NAME}" ]]; then
     exit 1
 fi
 
-echo "Patching images"
-cp -vfR ../resources/src/* ./apps/web/src/
-
-echo "Patching logos"
-replace_embedded_svg_icon \
-	../resources/vaultwarden-admin-console-logo.svg \
-	./apps/web/src/app/admin-console/icons/admin-console-logo.ts
-replace_embedded_svg_icon \
-	../resources/vaultwarden-password-manager-logo.svg \
-	./apps/web/src/app/layouts/password-manager-logo.ts
-replace_embedded_svg_icon \
-	../resources/src/images/logo.svg \
-	./libs/auth/src/angular/icons/bitwarden-logo.icon.ts
-replace_embedded_svg_icon \
-	../resources/vaultwarden-icon.svg \
-	./libs/auth/src/angular/icons/bitwarden-shield.icon.ts
-
 echo "Remove non-free bitwarden_license/ code"
 rm -rf ./bitwarden_license/
 if [ -d "./apps/web/src/app/tools/access-intelligence/" ]; then
