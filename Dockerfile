@@ -32,6 +32,7 @@ ENV CHECKOUT_TAGS=false
 RUN mkdir /bw_web_builds
 WORKDIR /bw_web_builds
 
+COPY patches ./patches
 COPY scripts ./scripts
 # Use a glob pattern here so builds will continue even if the `.build_env` does not exists
 COPY .build_env* ./
