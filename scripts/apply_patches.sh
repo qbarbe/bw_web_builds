@@ -32,26 +32,6 @@ if [[ -z ${PATCH_NAME} ]]; then
     fi
 fi
 
-# Final check if the patch file exists, if not, exit
-if [[ ! -f "../patches/${PATCH_NAME}" ]]; then
-    echo "Patch file '${PATCH_NAME}' not found in the patches directory!"
-    exit 1
-fi
-
-echo "Patching images"
-cp -vfR ../resources/src/* ./apps/web/src/
-
-echo "Patching logos"
-replace_embedded_svg_icon \
-	../resources/vaultwarden-admin-console-logo.svg \
-	./apps/web/src/app/admin-console/icons/admin-console-logo.ts
-replace_embedded_svg_icon \
-	../resources/vaultwarden-password-manager-logo.svg \
-	./apps/web/src/app/layouts/password-manager-logo.ts
-
-echo "Remove non-free bitwarden_license/ code"
-rm -rf ./bitwarden_license/
-
 echo "Using patch: ${PATCH_NAME}"
 git apply "../patches/${PATCH_NAME}" --reject
 
