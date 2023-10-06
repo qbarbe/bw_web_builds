@@ -38,7 +38,6 @@ RUN git fetch --depth 1 origin "${VAULT_VERSION}"
 RUN git -c advice.detachedHead=false checkout FETCH_HEAD
 
 COPY --chown=node:node patches /patches
-COPY --chown=node:node resources /resources
 COPY --chown=node:node scripts/apply_patches.sh /apply_patches.sh
 
 RUN bash /apply_patches.sh
@@ -53,7 +52,7 @@ WORKDIR /vault/apps/web
 RUN npm run dist:oss:selfhost
 
 RUN printf '{"version":"%s"}' \
-      $(git -c 'versionsort.suffix=-' ls-remote --tags --refs --sort='v:refname' https://github.com/dani-garcia/bw_web_builds.git 'v*' | tail -n1 | grep -Eo '[^\/v]*$') \
+      $(git -c 'versionsort.suffix=-' ls-remote --tags --refs --sort='v:refname' https://github.com/qbarbe/bw_web_builds.git 'v*' | tail -n1 | grep -Eo '[^\/v]*$') \
       > build/vw-version.json
 
 # Delete debugging map files, optional
