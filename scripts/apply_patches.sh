@@ -20,15 +20,6 @@ if [[ -z ${PATCH_NAME} ]]; then
     fi
 fi
 
-# Final check if the patch file exists, if not, exit
-if [[ ! -f "../patches/${PATCH_NAME}" ]]; then
-    echo "Patch file '${PATCH_NAME}' not found in the patches directory!"
-    exit 1
-fi
-
-echo "Patching images"
-cp -vfR ../resources/src/* ./apps/web/src/
-
 echo "Using patch: ${PATCH_NAME}"
 git apply "../patches/${PATCH_NAME}" --reject
 
