@@ -69,24 +69,6 @@ index 1f7d8cc2f1..5b45fd9b52 100644
              this.showToast(message);
              break;
            case "setFullWidth":
-diff --git a/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts b/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-index 849e003440..de32156aad 100644
---- a/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-+++ b/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-@@ -109,11 +109,11 @@ export class TwoFactorAuthenticatorComponent
-       new window.QRious({
-         element: document.getElementById("qr"),
-         value:
--          "otpauth://totp/Bitwarden:" +
-+          "otpauth://totp/Vaultwarden:" +
-           Utils.encodeRFC3986URIComponent(email) +
-           "?secret=" +
-           encodeURIComponent(this.key) +
--          "&issuer=Bitwarden",
-+          "&issuer=Vaultwarden",
-         size: 160,
-       });
-     }, 100);
 diff --git a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts b/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
 index 78872aa6a9..eed953b91a 100644
 --- a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
@@ -240,19 +222,6 @@ index 899a168479..5bb71b05f6 100644
        await this.environmentService.setUrls(urls);
        // Workaround to ignore stateService.activeAccount until process.env.URLS are set
        // TODO: Remove this when implementing ticket PM-2637
-diff --git a/apps/web/src/app/core/router.service.ts b/apps/web/src/app/core/router.service.ts
-index 5a0d903ba7..d6fedadd38 100644
---- a/apps/web/src/app/core/router.service.ts
-+++ b/apps/web/src/app/core/router.service.ts
-@@ -26,7 +26,7 @@ export class RouterService {
-       .subscribe((event: NavigationEnd) => {
-         this.currentUrl = event.url;
- 
--        let title = i18nService.t("bitWebVault");
-+        let title = "Vaultwarden Web";
- 
-         if (this.currentUrl.includes("/sm/")) {
-           title = i18nService.t("bitSecretsManager");
 diff --git a/apps/web/src/app/core/web-platform-utils.service.ts b/apps/web/src/app/core/web-platform-utils.service.ts
 index 02c7c29e34..cabd8b416a 100644
 --- a/apps/web/src/app/core/web-platform-utils.service.ts
@@ -276,40 +245,6 @@ index 02c7c29e34..cabd8b416a 100644
    }
  
    copyToClipboard(text: string, options?: any): void | boolean {
-diff --git a/apps/web/src/app/layouts/footer.component.html b/apps/web/src/app/layouts/footer.component.html
-index 98836bfd5d..3c6d5aac89 100644
---- a/apps/web/src/app/layouts/footer.component.html
-+++ b/apps/web/src/app/layouts/footer.component.html
-@@ -1,7 +1,9 @@
- <div class="container footer text-muted">
-   <div class="row">
--    <div class="col">&copy; {{ year }} Bitwarden Inc.</div>
--    <div class="col text-center"></div>
-+    <div class="col">Vaultwarden Web</div>
-+    <div class="col-8 text-center">
-+      A modified version of the Bitwarden&reg; Web Vault for Vaultwarden
-+    </div>
-     <div class="col text-right">
-       {{ "versionNumber" | i18n: version }}
-     </div>
-diff --git a/apps/web/src/app/layouts/frontend-layout.component.html b/apps/web/src/app/layouts/frontend-layout.component.html
-index 72f0f1f1da..e1659f8041 100644
---- a/apps/web/src/app/layouts/frontend-layout.component.html
-+++ b/apps/web/src/app/layouts/frontend-layout.component.html
-@@ -1,6 +1,12 @@
- <router-outlet></router-outlet>
- <div class="container my-5 text-muted text-center">
-   <environment-selector></environment-selector>
--  &copy; {{ year }} Bitwarden Inc. <br />
-+  Vaultwarden Web<br />
-   {{ "versionNumber" | i18n: version }}
-+  <br /><br />
-+  <div class="small">
-+    A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of the
-+    Bitwarden&reg; server).<br />
-+    Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
-+  </div>
- </div>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
 index b736a46d5a..6f7565d748 100644
 --- a/apps/web/src/app/layouts/header/web-header.component.html
@@ -323,40 +258,6 @@ index b736a46d5a..6f7565d748 100644
                  <bit-menu-divider></bit-menu-divider>
                  <span class="tw-break-all tw-px-4 tw-py-1 tw-text-left tw-text-muted">
                    {{ hostname }}
-diff --git a/apps/web/src/app/layouts/navbar.component.html b/apps/web/src/app/layouts/navbar.component.html
-index 72dd17d0dc..aaac2905dd 100644
---- a/apps/web/src/app/layouts/navbar.component.html
-+++ b/apps/web/src/app/layouts/navbar.component.html
-@@ -1,6 +1,6 @@
- <nav class="navbar navbar-expand navbar-dark" [ngClass]="{ 'nav-background-alt': selfHosted }">
-   <div class="container">
--    <a class="navbar-brand" routerLink="/" appA11yTitle="{{ 'bitWebVault' | i18n }}">
-+    <a class="navbar-brand" routerLink="/" appA11yTitle="Vaultwarden Web">
-       <i class="bwi bwi-shield" aria-hidden="true"></i>
-     </a>
-     <div class="collapse navbar-collapse">
-@@ -38,7 +38,6 @@
-         </ng-container>
-       </ul>
-     </div>
--    <product-switcher buttonType="light"></product-switcher>
-     <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-       <li>
-         <button
-@@ -75,7 +74,12 @@
-               <i class="bwi bwi-fw bwi-user" aria-hidden="true"></i>
-               {{ "accountSettings" | i18n }}
-             </a>
--            <a bitMenuItem href="https://bitwarden.com/help/" target="_blank" rel="noopener">
-+            <a
-+              bitMenuItem
-+              href="https://github.com/dani-garcia/vaultwarden/"
-+              target="_blank"
-+              rel="noopener"
-+            >
-               <i class="bwi bwi-fw bwi-question-circle" aria-hidden="true"></i>
-               {{ "getHelp" | i18n }}
-             </a>
 diff --git a/apps/web/src/app/settings/settings.component.ts b/apps/web/src/app/settings/settings.component.ts
 index 181506607e..2c0223ee32 100644
 --- a/apps/web/src/app/settings/settings.component.ts
@@ -388,37 +289,6 @@ index ee422ca527..efb91675dd 100644
        // Allow only valid email forwarders for self host
        this.forwardOptions = this.forwardOptions.filter((forwarder) => forwarder.validForSelfHosted);
      }
-diff --git a/apps/web/src/app/tools/send/access.component.html b/apps/web/src/app/tools/send/access.component.html
-index baff9d1b68..25f99cb40a 100644
---- a/apps/web/src/app/tools/send/access.component.html
-+++ b/apps/web/src/app/tools/send/access.component.html
-@@ -2,7 +2,7 @@
-   <div
-     class="tw-mx-auto tw-mt-5 tw-flex tw-max-w-xl tw-flex-col tw-items-center tw-justify-center tw-p-8"
-   >
--    <img class="logo logo-themed" alt="Bitwarden" />
-+    <img class="logo logo-themed" alt="Vaultwarden" />
-     <div class="tw-mt-5 tw-w-full">
-       <h2 bitTypography="h2" class="tw-mb-4 tw-text-center">View Send</h2>
-     </div>
-@@ -69,17 +69,6 @@
-     <div class="tw-mt-5 tw-w-10/12 tw-text-center tw-text-muted">
-       <p bitTypography="body2" class="tw-mb-0">
-         {{ "sendAccessTaglineProductDesc" | i18n }}
--        {{ "sendAccessTaglineLearnMore" | i18n }}
--        <a
--          bitLink
--          href="https://www.bitwarden.com/products/send?source=web-vault"
--          target="_blank"
--          rel="noopener noreferrer"
--          >Bitwarden Send</a
--        >
--        {{ "sendAccessTaglineOr" | i18n }}
--        <a bitLink routerLink="/register" target="_blank">{{ "sendAccessTaglineSignUp" | i18n }}</a>
--        {{ "sendAccessTaglineTryToday" | i18n }}
-       </p>
-     </div>
-   </div>
 diff --git a/apps/web/src/app/vault/individual-vault/vault.component.ts b/apps/web/src/app/vault/individual-vault/vault.component.ts
 index 5ca857dae6..bc7568f5f4 100644
 --- a/apps/web/src/app/vault/individual-vault/vault.component.ts
@@ -453,48 +323,6 @@ index 91c5f8fdf8..90a4d54a3a 100644
  
      const filter$ = this.routedVaultFilterService.filter$;
      const organizationId$ = filter$.pipe(
-diff --git a/apps/web/src/index.html b/apps/web/src/index.html
-index c3a2c03ed9..1a326771a6 100644
---- a/apps/web/src/index.html
-+++ b/apps/web/src/index.html
-@@ -5,7 +5,7 @@
-     <meta name="viewport" content="width=1010" />
-     <meta name="theme-color" content="#175DDC" />
- 
--    <title page-title>Bitwarden Web Vault</title>
-+    <title page-title>Vaultwarden Web</title>
- 
-     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
-     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
-@@ -17,7 +17,7 @@
-     <app-root>
-       <div class="mt-5 d-flex justify-content-center">
-         <div>
--          <img class="mb-4 logo logo-themed" alt="Bitwarden" />
-+          <img class="mb-4 logo logo-themed" alt="Vaultwarden" />
-           <p class="text-center">
-             <i
-               class="bwi bwi-spinner bwi-spin bwi-2x text-muted"
-diff --git a/apps/web/src/manifest.json b/apps/web/src/manifest.json
-index 92a1204c60..d9ff4771a3 100644
---- a/apps/web/src/manifest.json
-+++ b/apps/web/src/manifest.json
-@@ -1,5 +1,5 @@
- {
--  "name": "Bitwarden Vault",
-+  "name": "Vaultwarden Web",
-   "icons": [
-     {
-       "src": "images/icons/android-chrome-192x192.png",
-@@ -12,6 +12,6 @@
-       "type": "image/png"
-     }
-   ],
--  "theme_color": "#175DDC",
--  "background_color": "#175DDC"
-+  "theme_color": "#FFFFFF",
-+  "background_color": "#FFFFFF"
- }
 diff --git a/apps/web/src/scss/styles.scss b/apps/web/src/scss/styles.scss
 index 05cd9fef4e..60128014d7 100644
 --- a/apps/web/src/scss/styles.scss
@@ -583,7 +411,7 @@ index 05cd9fef4e..60128014d7 100644
 +}
 +
 +/* Replace the Bitwarden Shield at the top left with a Vaultwarden icon */
-+.bwi-shield:before {
++/*.bwi-shield:before {
 +  content: "" !important;
 +  width: 32px !important;
 +  height: 40px !important;
@@ -591,21 +419,8 @@ index 05cd9fef4e..60128014d7 100644
 +  background-image: url(../images/icon-white.png) !important;
 +  background-repeat: no-repeat;
 +  background-position-y: bottom;
-+}
++}*/
 +/**** END Vaultwarden CHANGES ****/
-diff --git a/apps/web/webpack.config.js b/apps/web/webpack.config.js
-index 0254636895..9a2ea1e8fb 100644
---- a/apps/web/webpack.config.js
-+++ b/apps/web/webpack.config.js
-@@ -136,8 +136,6 @@ const plugins = [
-       { from: "./src/favicon.ico" },
-       { from: "./src/browserconfig.xml" },
-       { from: "./src/app-id.json" },
--      { from: "./src/404.html" },
--      { from: "./src/404", to: "404" },
-       { from: "./src/images", to: "images" },
-       { from: "./src/locales", to: "locales" },
-       { from: "../../node_modules/qrious/dist/qrious.min.js", to: "scripts" },
 diff --git a/libs/angular/src/auth/components/register.component.ts b/libs/angular/src/auth/components/register.component.ts
 index f7c0a76509..d80a46efa9 100644
 --- a/libs/angular/src/auth/components/register.component.ts
