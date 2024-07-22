@@ -190,6 +190,28 @@ index 6e2761a9c4..307c54104a 100644
      ]);
  
      await this.stateEventRunnerService.handleEvent("logout", userId);
+diff --git a/apps/web/src/app/auth/login/login.component.html b/apps/web/src/app/auth/login/login.component.html
+index 0e29a34278..8beb6c7aab 100644
+--- a/apps/web/src/app/auth/login/login.component.html
++++ b/apps/web/src/app/auth/login/login.component.html
+@@ -9,7 +9,7 @@
+     class="tw-mx-auto tw-mt-5 tw-flex tw-max-w-lg tw-flex-col tw-items-center tw-justify-center tw-p-8"
+   >
+     <div>
+-      <img class="logo logo-themed" alt="Bitwarden" />
++      <img class="logo logo-themed" alt="Bitwarden" />
+       <p class="tw-mx-4 tw-mb-4 tw-mt-3 tw-text-center tw-text-xl">
+         {{ "loginOrCreateNewAccount" | i18n }}
+       </p>
+@@ -51,7 +51,7 @@
+             </button>
+           </div>
+ 
+-          <div class="tw-mb-3 tw-flex tw-flex-col tw-items-center tw-justify-center">
++          <div class="tw-mb-3 tw-flex tw-flex-col tw-items-center tw-justify-center vw-hide">
+             <p class="tw-mb-3">{{ "or" | i18n }}</p>
+ 
+             <a
 diff --git a/apps/web/src/app/auth/settings/change-password.component.html b/apps/web/src/app/auth/settings/change-password.component.html
 index 7c3c22b3d7..9a6900104d 100644
 --- a/apps/web/src/app/auth/settings/change-password.component.html
