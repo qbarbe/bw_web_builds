@@ -205,18 +205,6 @@ index 254f23eeb2..133eb4c059 100644
              this.toastService._showToast(message);
              break;
            case "convertAccountToKeyConnector":
-diff --git a/apps/web/src/app/auth/emergency-access/accept/accept-emergency.component.html b/apps/web/src/app/auth/emergency-access/accept/accept-emergency.component.html
-index 4690a4e63a..9d297671d2 100644
---- a/apps/web/src/app/auth/emergency-access/accept/accept-emergency.component.html
-+++ b/apps/web/src/app/auth/emergency-access/accept/accept-emergency.component.html
-@@ -1,6 +1,6 @@
- <div class="mt-5 d-flex justify-content-center" *ngIf="loading">
-   <div>
--    <img class="mb-4 logo logo-themed" alt="Bitwarden" />
-+    <img class="mb-4 logo logo-themed" alt="Vaultwarden" />
-     <p class="text-center">
-       <i
-         class="bwi bwi-spinner bwi-spin bwi-2x text-muted"
 diff --git a/apps/web/src/app/auth/login/login.component.html b/apps/web/src/app/auth/login/login.component.html
 index 0e29a34278..8beb6c7aab 100644
 --- a/apps/web/src/app/auth/login/login.component.html
@@ -226,7 +214,7 @@ index 0e29a34278..8beb6c7aab 100644
    >
      <div>
 -      <img class="logo logo-themed" alt="Bitwarden" />
-+      <img class="logo logo-themed" alt="Vaultwarden" />
++      <img class="logo logo-themed" alt="Bitwarden" />
        <p class="tw-mx-4 tw-mb-4 tw-mt-3 tw-text-center tw-text-xl">
          {{ "loginOrCreateNewAccount" | i18n }}
        </p>
@@ -249,24 +237,6 @@ index 7c3c22b3d7..9a6900104d 100644
  </form>
 -
 -<app-webauthn-login-settings></app-webauthn-login-settings>
-diff --git a/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts b/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-index 88b695eb72..f9aafc450a 100644
---- a/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-+++ b/apps/web/src/app/auth/settings/two-factor-authenticator.component.ts
-@@ -112,11 +112,11 @@ export class TwoFactorAuthenticatorComponent
-       new window.QRious({
-         element: document.getElementById("qr"),
-         value:
--          "otpauth://totp/Bitwarden:" +
-+          "otpauth://totp/Vaultwarden:" +
-           Utils.encodeRFC3986URIComponent(email) +
-           "?secret=" +
-           encodeURIComponent(this.key) +
--          "&issuer=Bitwarden",
-+          "&issuer=Vaultwarden",
-         size: 160,
-       });
-     }, 100);
 diff --git a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts b/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
 index 78872aa6a9..eed953b91a 100644
 --- a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
@@ -405,19 +375,6 @@ index 2228ad9f3a..21dc59117b 100644
      if (this.acceptingSponsorship) {
        this.formGroup.controls.product.setValue(ProductType.Families);
        this.changedProduct();
-diff --git a/apps/web/src/app/core/router.service.ts b/apps/web/src/app/core/router.service.ts
-index c0c1ec2640..fe4422a3b0 100644
---- a/apps/web/src/app/core/router.service.ts
-+++ b/apps/web/src/app/core/router.service.ts
-@@ -45,7 +45,7 @@ export class RouterService {
-       .subscribe((event: NavigationEnd) => {
-         this.currentUrl = event.url;
- 
--        let title = i18nService.t("bitWebVault");
-+        let title = "Vaultwarden Web";
- 
-         if (this.currentUrl.includes("/sm/")) {
-           title = i18nService.t("bitSecretsManager");
 diff --git a/apps/web/src/app/core/web-platform-utils.service.ts b/apps/web/src/app/core/web-platform-utils.service.ts
 index 02c7c29e34..9fd100024a 100644
 --- a/apps/web/src/app/core/web-platform-utils.service.ts
@@ -440,24 +397,6 @@ index 02c7c29e34..9fd100024a 100644
      return process.env.ENV.toString() === "selfhosted";
    }
  
-diff --git a/apps/web/src/app/layouts/frontend-layout.component.html b/apps/web/src/app/layouts/frontend-layout.component.html
-index 72f0f1f1da..cea0867131 100644
---- a/apps/web/src/app/layouts/frontend-layout.component.html
-+++ b/apps/web/src/app/layouts/frontend-layout.component.html
-@@ -1,6 +1,11 @@
- <router-outlet></router-outlet>
- <div class="container my-5 text-muted text-center">
--  <environment-selector></environment-selector>
--  &copy; {{ year }} Bitwarden Inc. <br />
-+  Vaultwarden Web<br />
-   {{ "versionNumber" | i18n: version }}
-+  <br /><br />
-+  <div class="small">
-+    A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of the
-+    Bitwarden&reg; server).<br />
-+    Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
-+  </div>
- </div>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
 index e2b3e7910a..fda32e9257 100644
 --- a/apps/web/src/app/layouts/header/web-header.component.html
@@ -586,39 +525,6 @@ index c2eb37eea5..54fc97943c 100644
  
      // Find the region
      const domain = Utils.getDomain(this.win.location.href);
-diff --git a/apps/web/src/app/tools/send/access.component.html b/apps/web/src/app/tools/send/access.component.html
-index 6fef7d361d..1deb1164ff 100644
---- a/apps/web/src/app/tools/send/access.component.html
-+++ b/apps/web/src/app/tools/send/access.component.html
-@@ -2,7 +2,7 @@
-   <div
-     class="tw-mx-auto tw-mt-5 tw-flex tw-max-w-xl tw-flex-col tw-items-center tw-justify-center tw-p-8"
-   >
--    <img class="logo logo-themed" alt="Bitwarden" />
-+    <img class="logo logo-themed" alt="Vaultwarden" />
-     <div class="tw-mt-5 tw-w-full">
-       <h2 bitTypography="h2" class="tw-mb-4 tw-text-center">View Send</h2>
-     </div>
-@@ -66,19 +66,6 @@
-     <div class="tw-mt-5 tw-w-10/12 tw-text-center tw-text-muted">
-       <p bitTypography="body2" class="tw-mb-0">
-         {{ "sendAccessTaglineProductDesc" | i18n }}
--        {{ "sendAccessTaglineLearnMore" | i18n }}
--        <a
--          bitLink
--          href="https://www.bitwarden.com/products/send?source=web-vault"
--          target="_blank"
--          rel="noreferrer"
--          >Bitwarden Send</a
--        >
--        {{ "sendAccessTaglineOr" | i18n }}
--        <a bitLink routerLink="/register" target="_blank" rel="noreferrer">{{
--          "sendAccessTaglineSignUp" | i18n
--        }}</a>
--        {{ "sendAccessTaglineTryToday" | i18n }}
-       </p>
-     </div>
-   </div>
 diff --git a/apps/web/src/app/tools/send/add-edit.component.html b/apps/web/src/app/tools/send/add-edit.component.html
 index 3225b61350..2a192514bf 100644
 --- a/apps/web/src/app/tools/send/add-edit.component.html
@@ -665,48 +571,6 @@ index 8dd63e62dd..1a1e45cc35 100644
        );
      } else {
        // Remove reset password
-diff --git a/apps/web/src/index.html b/apps/web/src/index.html
-index c3a2c03ed9..1a326771a6 100644
---- a/apps/web/src/index.html
-+++ b/apps/web/src/index.html
-@@ -5,7 +5,7 @@
-     <meta name="viewport" content="width=1010" />
-     <meta name="theme-color" content="#175DDC" />
- 
--    <title page-title>Bitwarden Web Vault</title>
-+    <title page-title>Vaultwarden Web</title>
- 
-     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
-     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
-@@ -17,7 +17,7 @@
-     <app-root>
-       <div class="mt-5 d-flex justify-content-center">
-         <div>
--          <img class="mb-4 logo logo-themed" alt="Bitwarden" />
-+          <img class="mb-4 logo logo-themed" alt="Vaultwarden" />
-           <p class="text-center">
-             <i
-               class="bwi bwi-spinner bwi-spin bwi-2x text-muted"
-diff --git a/apps/web/src/manifest.json b/apps/web/src/manifest.json
-index 92a1204c60..d9ff4771a3 100644
---- a/apps/web/src/manifest.json
-+++ b/apps/web/src/manifest.json
-@@ -1,5 +1,5 @@
- {
--  "name": "Bitwarden Vault",
-+  "name": "Vaultwarden Web",
-   "icons": [
-     {
-       "src": "images/icons/android-chrome-192x192.png",
-@@ -12,6 +12,6 @@
-       "type": "image/png"
-     }
-   ],
--  "theme_color": "#175DDC",
--  "background_color": "#175DDC"
-+  "theme_color": "#FFFFFF",
-+  "background_color": "#FFFFFF"
- }
 diff --git a/apps/web/src/scss/styles.scss b/apps/web/src/scss/styles.scss
 index 8fbea200a9..e3ff719ab2 100644
 --- a/apps/web/src/scss/styles.scss
@@ -782,7 +646,7 @@ index 8fbea200a9..e3ff719ab2 100644
 +}
 +
 +/* Replace the Bitwarden Shield at the top left with a Vaultwarden icon */
-+.bwi-shield:before {
++/*.bwi-shield:before {
 +  content: "" !important;
 +  width: 32px !important;
 +  height: 40px !important;
@@ -790,7 +654,7 @@ index 8fbea200a9..e3ff719ab2 100644
 +  background-image: url(../images/icon-white.png) !important;
 +  background-repeat: no-repeat;
 +  background-position-y: bottom;
-+}
++}*/
 +/**** END Vaultwarden CHANGES ****/
 diff --git a/apps/web/tailwind.config.js b/apps/web/tailwind.config.js
 index 08673c3f9a..db1dd55694 100644
@@ -804,19 +668,6 @@ index 08673c3f9a..db1dd55694 100644
  ];
  
  module.exports = config;
-diff --git a/apps/web/webpack.config.js b/apps/web/webpack.config.js
-index f22d98f081..a9904a2ecf 100644
---- a/apps/web/webpack.config.js
-+++ b/apps/web/webpack.config.js
-@@ -138,8 +138,6 @@ const plugins = [
-       { from: "./src/favicon.ico" },
-       { from: "./src/browserconfig.xml" },
-       { from: "./src/app-id.json" },
--      { from: "./src/404.html" },
--      { from: "./src/404", to: "404" },
-       { from: "./src/images", to: "images" },
-       { from: "./src/locales", to: "locales" },
-       { from: "../../node_modules/qrious/dist/qrious.min.js", to: "scripts" },
 diff --git a/clients.code-workspace b/clients.code-workspace
 index a424f91eeb..72f7c59185 100644
 --- a/clients.code-workspace
