@@ -646,15 +646,15 @@ index 8fbea200a9..e3ff719ab2 100644
 +}
 +
 +/* Replace the Bitwarden Shield at the top left with a Vaultwarden icon */
-+/*.bwi-shield:before {
-+  content: "" !important;
-+  width: 32px !important;
-+  height: 40px !important;
-+  display: block !important;
-+  background-image: url(../images/icon-white.png) !important;
-+  background-repeat: no-repeat;
-+  background-position-y: bottom;
-+}*/
++/* .bwi-shield:before { */
++/*  content: "" !important; */
++/*  width: 32px !important; */
++/*  height: 40px !important; */
++/*  display: block !important; */
++/*  background-image: url(../images/icon-white.png) !important; */
++/*  background-repeat: no-repeat; */
++/*  background-position-y: bottom; */
++/* } */
 +/**** END Vaultwarden CHANGES ****/
 diff --git a/apps/web/tailwind.config.js b/apps/web/tailwind.config.js
 index 08673c3f9a..db1dd55694 100644
