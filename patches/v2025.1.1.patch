@@ -106,19 +106,6 @@ index 0cf8c24d46..6bf239a37e 100644
      const request = new OrganizationCollectionManagementUpdateRequest();
      request.limitCollectionCreation =
        this.collectionManagementFormGroup.value.limitCollectionCreation;
-diff --git a/apps/web/src/app/app.component.html b/apps/web/src/app/app.component.html
-index a39c045e0e..9d72e609b4 100644
---- a/apps/web/src/app/app.component.html
-+++ b/apps/web/src/app/app.component.html
-@@ -3,7 +3,7 @@
-    when the body has the layout_frontend class. Having this match the index allows for a duplicative yet seamless
-    loading state here for process reloading. -->
-   <div class="tw-p-8 tw-flex">
--    <img class="new-logo-themed" alt="Bitwarden" />
-+    <img class="new-logo-themed" alt="Vaultwarden" />
-     <div class="spinner-container tw-justify-center">
-       <i
-         class="bwi bwi-spinner bwi-spin bwi-3x tw-text-muted"
 diff --git a/apps/web/src/app/app.component.ts b/apps/web/src/app/app.component.ts
 index ee9f87bc2c..90ded63589 100644
 --- a/apps/web/src/app/app.component.ts
@@ -144,24 +131,6 @@ index 91144fdfc1..d3dc4410c9 100644
  </form>
 -
 -<app-webauthn-login-settings></app-webauthn-login-settings>
-diff --git a/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts b/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
-index de187d2c33..c33f49fd70 100644
---- a/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
-+++ b/apps/web/src/app/auth/settings/two-factor/two-factor-setup-authenticator.component.ts
-@@ -189,11 +189,11 @@ export class TwoFactorSetupAuthenticatorComponent
-     new window.QRious({
-       element: document.getElementById("qr"),
-       value:
--        "otpauth://totp/Bitwarden:" +
-+        "otpauth://totp/Vaultwarden:" +
-         Utils.encodeRFC3986URIComponent(email) +
-         "?secret=" +
-         encodeURIComponent(this.key) +
--        "&issuer=Bitwarden",
-+        "&issuer=Vaultwarden",
-       size: 160,
-     });
-   }
 diff --git a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts b/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
 index d533badabf..6512ecbd13 100644
 --- a/apps/web/src/app/billing/organizations/organization-billing-history-view.component.ts
@@ -309,19 +278,6 @@ index 94e8637e8a..d67491ee0f 100644
      if (this.acceptingSponsorship) {
        this.formGroup.controls.productTier.setValue(ProductTierType.Families);
        this.changedProduct();
-diff --git a/apps/web/src/app/core/router.service.ts b/apps/web/src/app/core/router.service.ts
-index ff0aea47b9..21ec31a19a 100644
---- a/apps/web/src/app/core/router.service.ts
-+++ b/apps/web/src/app/core/router.service.ts
-@@ -61,7 +61,7 @@ export class RouterService {
-       .subscribe((event: NavigationEnd) => {
-         this.currentUrl = event.url;
- 
--        let title = i18nService.t("bitWebVault");
-+        let title = "Vaultwarden Web";
- 
-         if (this.currentUrl.includes("/sm/")) {
-           title = i18nService.t("bitSecretsManager");
 diff --git a/apps/web/src/app/core/web-platform-utils.service.ts b/apps/web/src/app/core/web-platform-utils.service.ts
 index 3df2a7d895..f73d811690 100644
 --- a/apps/web/src/app/core/web-platform-utils.service.ts
@@ -344,24 +300,6 @@ index 3df2a7d895..f73d811690 100644
      return process.env.ENV.toString() === "selfhosted";
    }
  
-diff --git a/apps/web/src/app/layouts/frontend-layout.component.html b/apps/web/src/app/layouts/frontend-layout.component.html
-index 72f0f1f1da..cea0867131 100644
---- a/apps/web/src/app/layouts/frontend-layout.component.html
-+++ b/apps/web/src/app/layouts/frontend-layout.component.html
-@@ -1,6 +1,11 @@
- <router-outlet></router-outlet>
- <div class="container my-5 text-muted text-center">
--  <environment-selector></environment-selector>
--  &copy; {{ year }} Bitwarden Inc. <br />
-+  Vaultwarden Web<br />
-   {{ "versionNumber" | i18n: version }}
-+  <br /><br />
-+  <div class="small">
-+    A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of the
-+    Bitwarden&reg; server).<br />
-+    Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
-+  </div>
- </div>
 diff --git a/apps/web/src/app/layouts/header/web-header.component.html b/apps/web/src/app/layouts/header/web-header.component.html
 index 7cba19b29a..024b14daad 100644
 --- a/apps/web/src/app/layouts/header/web-header.component.html
@@ -506,54 +444,6 @@ index e8090cb850..284b916514 100644
 -    {{ "sendAccessTaglineTryToday" | i18n }}
    </p>
  </div>
-diff --git a/apps/web/src/index.html b/apps/web/src/index.html
-index 0b8ea86491..5d98411f46 100644
---- a/apps/web/src/index.html
-+++ b/apps/web/src/index.html
-@@ -5,19 +5,21 @@
-     <meta name="viewport" content="width=1010" />
-     <meta name="theme-color" content="#175DDC" />
- 
--    <title page-title>Bitwarden Web vault</title>
-+    <title page-title>Vaultwarden Web</title>
- 
-     <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png" />
-     <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png" />
-     <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
-     <link rel="mask-icon" href="images/icons/safari-pinned-tab.svg" color="#175DDC" />
-     <link rel="manifest" href="manifest.json" />
-+    <!-- webpackIgnore: true -->
-+    <link rel="stylesheet" href="css/vaultwarden.css" />
-   </head>
-   <body class="layout_frontend">
-     <app-root>
-       <!-- Note: any changes to this html need to be made in the app.component.html as well -->
-       <div class="tw-p-8 tw-flex">
--        <img class="new-logo-themed" alt="Bitwarden" />
-+        <img class="new-logo-themed" alt="Vaultwarden" />
-         <div class="spinner-container tw-justify-center">
-           <i
-             class="bwi bwi-spinner bwi-spin bwi-3x tw-text-muted"
-diff --git a/apps/web/src/manifest.json b/apps/web/src/manifest.json
-index 92a1204c60..d9ff4771a3 100644
---- a/apps/web/src/manifest.json
-+++ b/apps/web/src/manifest.json
-@@ -1,5 +1,5 @@
- {
--  "name": "Bitwarden Vault",
-+  "name": "Vaultwarden Web",
-   "icons": [
-     {
-       "src": "images/icons/android-chrome-192x192.png",
-@@ -12,6 +12,6 @@
-       "type": "image/png"
-     }
-   ],
--  "theme_color": "#175DDC",
--  "background_color": "#175DDC"
-+  "theme_color": "#FFFFFF",
-+  "background_color": "#FFFFFF"
- }
 diff --git a/apps/web/src/scss/tailwind.css b/apps/web/src/scss/tailwind.css
 index 1ac7b15401..0c388f6787 100644
 --- a/apps/web/src/scss/tailwind.css
@@ -680,68 +570,6 @@ index 04dc3b6dfd..2791b0bc17 100644
      this.showReadonlyHostname = null;
      this.maxWidth = null;
      this.titleAreaMaxWidth = null;
-diff --git a/libs/auth/src/angular/anon-layout/anon-layout.component.html b/libs/auth/src/angular/anon-layout/anon-layout.component.html
-index cb3445abd9..6ad354505d 100644
---- a/libs/auth/src/angular/anon-layout/anon-layout.component.html
-+++ b/libs/auth/src/angular/anon-layout/anon-layout.component.html
-@@ -8,7 +8,7 @@
-   <a
-     *ngIf="!hideLogo"
-     [routerLink]="['/']"
--    class="tw-w-[128px] tw-block tw-mb-12 [&>*]:tw-align-top"
-+    class="tw-w-[175px] tw-block tw-mb-12 [&>*]:tw-align-top"
-   >
-     <bit-icon [icon]="logo"></bit-icon>
-   </a>
-@@ -55,8 +55,14 @@
-       <ng-content select="[slot=environment-selector]"></ng-content>
-     </ng-container>
-     <ng-container *ngIf="!hideYearAndVersion">
--      <div bitTypography="body2">&copy; {{ year }} Bitwarden Inc.</div>
--      <div bitTypography="body2">{{ version }}</div>
-+      <div bitTypography="body2">Vaultwarden Web</div>
-+      <div bitTypography="body2">Version {{ version }}</div>
-+      <br />
-+      <div class="small">
-+        A modified version of the Bitwarden&reg; Web Vault for Vaultwarden (an unofficial rewrite of
-+        the Bitwarden&reg; server).<br />
-+        Vaultwarden is not associated with the Bitwarden&reg; project nor Bitwarden Inc.
-+      </div>
-     </ng-container>
-   </footer>
- </main>
-diff --git a/libs/components/src/tw-theme.css b/libs/components/src/tw-theme.css
-index 0a5a66337a..af5f0fb57a 100644
---- a/libs/components/src/tw-theme.css
-+++ b/libs/components/src/tw-theme.css
-@@ -7,13 +7,13 @@
-   --color-background: 255 255 255;
-   --color-background-alt: 243 246 249;
-   --color-background-alt2: 23 92 219;
--  --color-background-alt3: 26 65 172;
--  --color-background-alt4: 2 15 102;
-+  --color-background-alt3: 33 37 41; /* bg of menu panel */
-+  --color-background-alt4: 16 18 21; /* bg of active menu item */
- 
-   --color-primary-100: 219 229 246;
--  --color-primary-300: 121 161 233;
--  --color-primary-600: 23 93 220;
--  --color-primary-700: 26 65 172;
-+  --color-primary-300: 108 117 125; /* hover of menu items */
-+  --color-primary-600: 18 82 163; /* color of links and buttons */
-+  --color-primary-700: 13 60 119; /* hover of links and buttons */
- 
-   --color-secondary-100: 230 233 239;
-   --color-secondary-300: 168 179 200;
-@@ -49,7 +49,7 @@
-   --color-text-alt2: 255 255 255;
-   --color-text-code: 192 17 118;
- 
--  --color-marketing-logo: 23 93 220;
-+  --color-marketing-logo: 15 15 15; /* The Vaultwarden Logo */
- 
-   --tw-ring-offset-color: #ffffff;
- }
 diff --git a/libs/components/tailwind.config.js b/libs/components/tailwind.config.js
 index 7a53c82ec5..9d0a337bd2 100644
 --- a/libs/components/tailwind.config.js
