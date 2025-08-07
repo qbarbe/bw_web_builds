@@ -49,12 +49,12 @@ else
         VAULTWARDEN_REMOTE=$(git remote get-url vaultwarden || echo -n )
         if [ "x${VAULTWARDEN_REMOTE}" = "x" ]
 	then
-           echo "adding vaultwarden/vw_web_builds as remote repository"
-           git remote add vaultwarden https://github.com/vaultwarden/vw_web_builds.git
-        elif [ "${VAULTWARDEN_REMOTE}" != "https://github.com/vaultwarden/vw_web_builds.git" ]
+           echo "adding qbarbe/vw_web_builds as remote repository"
+           git remote add vaultwarden https://github.com/qbarbe/vw_web_builds.git
+        elif [ "${VAULTWARDEN_REMOTE}" != "https://github.com/qbarbe/vw_web_builds.git" ]
 	then
             echo "Warning: \`git remote get vaultwarden\` did not return the expected repository"
-	    echo "expected: https://github.com/vaultwarden/vw_web_builds.git"
+	    echo "expected: https://github.com/qbarbe/vw_web_builds.git"
 	    echo "received: ${VAULTWARDEN_REMOTE}"
 	    read -p "Press enter to continue"
         fi
